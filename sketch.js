@@ -2,8 +2,10 @@ let time;
 let frameCountBuffer = 0;
 let fps = 0;
 
-const CANVAS_W = 1200;
-const CANVAS_H = 960;
+const CANVAS_W = 960;
+const CANVAS_H = 1200;
+const STYLE_W = '960px';
+const STYLE_H = '1200px';
 
 const GRID_SIZE = 64;
 
@@ -26,7 +28,10 @@ function preload() {
 }
 
 function setup() {
-	createCanvas(CANVAS_W, CANVAS_H);
+	let canvas = createCanvas(CANVAS_W, CANVAS_H);
+	pixelDensity(1);
+	canvas.elt.style.width = STYLE_W;
+	canvas.elt.style.height = STYLE_H;	
 	frameRate(60);
 	time = millis();
 
