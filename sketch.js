@@ -34,9 +34,9 @@ function preload() {
 
 function setup() {
 	let canvas = createCanvas(CANVAS_W, CANVAS_H);
-	pixelDensity(1);
-	canvas.elt.style.width = STYLE_W;
-	canvas.elt.style.height = STYLE_H;	
+//	pixelDensity(1);
+//	canvas.elt.style.width = STYLE_W;
+//	canvas.elt.style.height = STYLE_H;	
 	frameRate(60);
 	time = millis();
 
