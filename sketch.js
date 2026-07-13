@@ -7,7 +7,12 @@ const CANVAS_H = 1200;
 const STYLE_W = '960px';
 const STYLE_H = '1200px';
 
+
 const GRID_SIZE = 64;
+
+const C_SIZE = GRID_SIZE*10;
+const C_X = CANVAS_W/2;
+const C_Y = C_SIZE/2 + GRID_SIZE*2;
 
 const BUTTON_OFFSET = 0;
 const BUTTON_W = GRID_SIZE*2;
@@ -55,20 +60,32 @@ function draw() {
 		fps = frameCount - frameCountBuffer;
 		frameCountBuffer = frameCount;
 	}
+	if (DEBUG){
+		stroke(224);
+		strokeWeight(1);
+		for (let i=0; i<CANVAS_H/GRID_SIZE; i++){
+			line(0, i*GRID_SIZE, CANVAS_W, i*GRID_SIZE);
+		}
+		for (let i=0; i<CANVAS_W/GRID_SIZE; i++){
+			line(i*GRID_SIZE, 0, i*GRID_SIZE, CANVAS_H);
+		}
+	}
 
 	noStroke();
-	for (let x = 100; x < 300; x += stripeWidth * 2) {
+	for (let x = C_X-C_SIZE/2; x < C_X+C_SIZE/2; x += stripeWidth * 2) {
 		fill(0);   // 黒い縞
-		rect(x, 100, stripeWidth, 200);
+		rect(x, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
 		fill(255); // 白い縞
-		rect(x + stripeWidth, 100, stripeWidth, 200);
+		rect(x + stripeWidth, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
 	}
+/*
 	for (let y = 100; y < 300; y += stripeWidth * 2) {
 		fill(0);   // 黒い縞
 		rect(400, y, 200, stripeWidth);
 		fill(255); // 白い縞
 		rect(400, y + stripeWidth, 200, stripeWidth);
 	}
+*/
 /*
 	// 縞模様を描画するエリアのベース（土台）を「白」で塗る
 	fill(255);
