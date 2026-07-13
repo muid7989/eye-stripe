@@ -23,6 +23,8 @@ const BUTTON_M = GRID_SIZE*0.5;
 
 let selectButton;
 let stripeWidth = 2;
+let selectVal = 0;
+let SELECT_NUM = 2;
 
 const DEBUG = true;
 const DEBUG_VIEW_X = 20;
@@ -51,6 +53,10 @@ function buttonInit(text, w, h, x, y) {
 	return button;
 }
 function selectFn() {
+	selectVal++;
+	if (selectVal>=SELECT_NUM){
+		selectVal = 0;
+	}
 }
 function draw() {
 	background(194);
@@ -72,12 +78,25 @@ function draw() {
 	}
 
 	noStroke();
-	for (let x = C_X-C_SIZE/2; x < C_X+C_SIZE/2; x += stripeWidth * 2) {
-		fill(0);   // 黒い縞
-		rect(x, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
-		fill(255); // 白い縞
-		rect(x + stripeWidth, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
+	switch (selectVal){
+		case 0:
+			for (let x = C_X-C_SIZE/2; x < C_X+C_SIZE/2; x += stripeWidth * 2) {
+				fill(0);   // 黒い縞
+				rect(x, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
+				fill(255); // 白い縞
+				rect(x + stripeWidth, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
+			}
+			break;
+		case 1:
+			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
+				fill(0);   // 黒い縞
+				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
+				fill(255); // 白い縞
+				rect(C_X-C_SIZE/2, y + stripeWidth, C_SIZE, stripeWidth);
+			}
+			break;
 	}
+
 /*
 	for (let y = 100; y < 300; y += stripeWidth * 2) {
 		fill(0);   // 黒い縞
