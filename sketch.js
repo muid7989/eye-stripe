@@ -22,7 +22,7 @@ const BUTTON_Y = CANVAS_H-GRID_SIZE*3;
 const BUTTON_M = GRID_SIZE*0.5;
 
 let selectButton;
-let stripeWidth = 1;
+let stripeWidth = 2;
 
 const DEBUG = true;
 const DEBUG_VIEW_X = 20;
@@ -34,7 +34,7 @@ function preload() {
 
 function setup() {
 	let canvas = createCanvas(CANVAS_W, CANVAS_H);
-//	pixelDensity(1);
+	pixelDensity(1);
 //	canvas.elt.style.width = STYLE_W;
 //	canvas.elt.style.height = STYLE_H;	
 	frameRate(60);
