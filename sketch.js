@@ -116,6 +116,7 @@ function draw() {
 			}
 			break;
 		case 2:
+			stripeWidth = 3;
 			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
 				for (let x = C_X-C_SIZE/2; x < C_X+C_SIZE/2; x += stripeWidth * 2) {
 					fill(0);
@@ -128,7 +129,7 @@ function draw() {
 			}
 			break;
 		case 3:
-			stripeWidth = 2;
+			stripeWidth = 3;
 			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
 				fill('blue');
 				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
@@ -137,7 +138,7 @@ function draw() {
 			}
 			break;
 		case 4:
-			stripeWidth = 1;
+			stripeWidth = 2;
 			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
 				fill('blue');
 				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
