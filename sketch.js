@@ -24,7 +24,7 @@ const BUTTON_M = GRID_SIZE*0.5;
 let selectButton;
 let stripeWidth = 2;
 let selectVal = 0;
-let SELECT_NUM = 6;
+let SELECT_NUM = 8;
 let maskBuffer;
 const BG_COLOR = 180;
 
@@ -154,7 +154,25 @@ function draw() {
 				rect(x + stripeWidth, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
 			}
 			break;
-	}
+		case 6:
+			stripeWidth = 2;
+			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
+				fill('cyan');
+				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
+				fill('red');
+				rect(C_X-C_SIZE/2, y + stripeWidth, C_SIZE, stripeWidth);
+			}
+			break;
+		case 7:
+			stripeWidth = 1;
+			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
+				fill('cyan');
+				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
+				fill('red');
+				rect(C_X-C_SIZE/2, y + stripeWidth, C_SIZE, stripeWidth);
+			}
+			break;
+		}
 	image(maskBuffer, 0, 0);
 /*
 	for (let y = 100; y < 300; y += stripeWidth * 2) {
