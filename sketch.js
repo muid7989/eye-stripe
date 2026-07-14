@@ -146,7 +146,7 @@ function draw() {
 			}
 			break;
 		case 5:
-			stripeWidth = 1;
+			stripeWidth = 3;
 			for (let x = C_X-C_SIZE/2; x < C_X+C_SIZE/2; x += stripeWidth * 2) {
 				fill(0);   // 黒い縞
 				rect(x, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
@@ -155,7 +155,7 @@ function draw() {
 			}
 			break;
 		case 6:
-			stripeWidth = 2;
+			stripeWidth = 3;
 			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
 				fill('cyan');
 				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
@@ -164,7 +164,7 @@ function draw() {
 			}
 			break;
 		case 7:
-			stripeWidth = 1;
+			stripeWidth = 2;
 			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
 				fill('cyan');
 				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
