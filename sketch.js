@@ -24,7 +24,7 @@ const BUTTON_M = GRID_SIZE*0.5;
 let selectButton;
 let stripeWidth = 2;
 let selectVal = 0;
-let SELECT_NUM = 3;
+let SELECT_NUM = 6;
 let maskBuffer;
 const BG_COLOR = 180;
 
@@ -58,7 +58,6 @@ function setup() {
 	  
 		// 【重要】なだらかなボケ（ガウス曲線）に近づけるため、値を2乗してカーブを滑らかにする
 //		let curveOpacity = 255 - pow(opacity / 255, 2) * 255;
-		console.log(opacity);
 //		maskBuffer.fill(BG_COLOR, curveOpacity); // 背景色 (194) に透明度を設定
 		maskBuffer.erase(255-opacity);
 		maskBuffer.ellipse(C_X, C_Y, r);
@@ -100,6 +99,7 @@ function draw() {
 	noStroke();
 	switch (selectVal){
 		case 0:
+			stripeWidth = 2;
 			for (let x = C_X-C_SIZE/2; x < C_X+C_SIZE/2; x += stripeWidth * 2) {
 				fill(0);   // 黒い縞
 				rect(x, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
@@ -125,6 +125,33 @@ function draw() {
 					rect(x+stripeWidth, y, stripeWidth, stripeWidth);
 					rect(x, y+stripeWidth, stripeWidth, stripeWidth);
 				}
+			}
+			break;
+		case 3:
+			stripeWidth = 2;
+			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
+				fill('blue');
+				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
+				fill('red');
+				rect(C_X-C_SIZE/2, y + stripeWidth, C_SIZE, stripeWidth);
+			}
+			break;
+		case 4:
+			stripeWidth = 1;
+			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
+				fill('blue');
+				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
+				fill('red');
+				rect(C_X-C_SIZE/2, y + stripeWidth, C_SIZE, stripeWidth);
+			}
+			break;
+		case 5:
+			stripeWidth = 1;
+			for (let x = C_X-C_SIZE/2; x < C_X+C_SIZE/2; x += stripeWidth * 2) {
+				fill(0);   // 黒い縞
+				rect(x, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
+				fill(255); // 白い縞
+				rect(x + stripeWidth, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
 			}
 			break;
 	}
