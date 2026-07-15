@@ -46,6 +46,15 @@ function preload() {
 }
 
 function setup() {
+	let urlParams = new URLSearchParams(window.location.search);
+	let paramWidth = urlParams.get('w');
+	let realWidth = paramWidth ? parseInt(paramWidth) : 1080;
+  
+	let meta = document.querySelector('meta[name="viewport"]') || document.createElement('meta');
+	meta.name = "viewport";
+	meta.content = `width=${realWidth}`;
+	document.getElementsByTagName('head')[0].appendChild(meta);
+
 	let canvas = createCanvas(CANVAS_W, CANVAS_H);
 	pixelDensity(1);
 	canvas.elt.style.width = STYLE_W;
