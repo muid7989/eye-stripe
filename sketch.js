@@ -22,11 +22,20 @@ const BUTTON_Y = CANVAS_H-GRID_SIZE*3;
 const BUTTON_M = GRID_SIZE*0.5;
 
 let selectButton;
+let widthButton, colorButton;
 let stripeWidth = 2;
+const WIDTH_MAX = 8;
 let selectVal = 0;
 let SELECT_NUM = 8;
 let maskBuffer;
 const BG_COLOR = 180;
+const COLOR_SET = [
+	[[0,0,0], [255,255,255]],
+	[[255,0,0], [0,255,255]],
+	[[0,255,0], [255,0,255]],
+	[[0,0,255], [255,255,0]],
+]
+let colorSelect = 0;
 
 const DEBUG = true;
 const DEBUG_VIEW_X = 20;
@@ -44,8 +53,12 @@ function setup() {
 	frameRate(60);
 	time = millis();
 
-	selectButton = buttonInit('select', BUTTON_W, BUTTON_H, BUTTON_X+(BUTTON_M+BUTTON_W)*3, BUTTON_Y);
+	selectButton = buttonInit('select', BUTTON_W, BUTTON_H, BUTTON_X+(BUTTON_M+BUTTON_W)*0, BUTTON_Y);
 	selectButton.mousePressed(selectFn);
+	widthButton = buttonInit('width', BUTTON_W, BUTTON_H, BUTTON_X+(BUTTON_M+BUTTON_W)*1, BUTTON_Y);
+	widthButton.mousePressed(widthFn);
+	colorButton = buttonInit('color', BUTTON_W, BUTTON_H, BUTTON_X+(BUTTON_M+BUTTON_W)*2, BUTTON_Y);
+	colorButton.mousePressed(colorFn);
 
 	maskBuffer = createGraphics(CANVAS_W, CANVAS_H);
 	maskBuffer.pixelDensity(1);
@@ -77,6 +90,18 @@ function selectFn() {
 		selectVal = 0;
 	}
 }
+function widthFn() {
+	stripeWidth++;
+	if (stripeWidth>=WIDTH_MAX){
+		stripeWidth = 1;
+	}
+}
+function colorFn() {
+	colorSelect++;
+	if (colorSelect>=COLOR_SET.length){
+		colorSelect = 0;
+	}
+}
 function draw() {
 	background(BG_COLOR);
 	let current = millis();
@@ -99,44 +124,60 @@ function draw() {
 	noStroke();
 	switch (selectVal){
 		case 0:
-			stripeWidth = 2;
 			for (let x = C_X-C_SIZE/2; x < C_X+C_SIZE/2; x += stripeWidth * 2) {
-				fill(0);   // 黒い縞
+				fill(COLOR_SET[colorSelect][0]);
 				rect(x, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
-				fill(255); // 白い縞
+				fill(COLOR_SET[colorSelect][1]);
 				rect(x + stripeWidth, C_Y-C_SIZE/2, stripeWidth, C_SIZE);
 			}
 			break;
 		case 1:
 			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
-				fill(0);   // 黒い縞
+				fill(COLOR_SET[colorSelect][0]);
 				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
-				fill(255); // 白い縞
+				fill(COLOR_SET[colorSelect][1]);
 				rect(C_X-C_SIZE/2, y + stripeWidth, C_SIZE, stripeWidth);
 			}
 			break;
 		case 2:
-			stripeWidth = 3;
 			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
 				for (let x = C_X-C_SIZE/2; x < C_X+C_SIZE/2; x += stripeWidth * 2) {
-					fill(0);
+					fill(COLOR_SET[colorSelect][0]);
 					rect(x, y, stripeWidth, stripeWidth);
 					rect(x+stripeWidth, y+stripeWidth, stripeWidth, stripeWidth);
-					fill(255);
+					fill(COLOR_SET[colorSelect][1]);
 					rect(x+stripeWidth, y, stripeWidth, stripeWidth);
 					rect(x, y+stripeWidth, stripeWidth, stripeWidth);
 				}
 			}
 			break;
 		case 3:
-			stripeWidth = 3;
+			let count = 0;
+			let stripeMode = 0;
 			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
-				fill('blue');
-				rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
-				fill('red');
-				rect(C_X-C_SIZE/2, y + stripeWidth, C_SIZE, stripeWidth);
+				switch (stripeMode){
+					case 0:
+						fill(COLOR_SET[colorSelect][0]);
+						rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth);
+						fill(COLOR_SET[colorSelect][1]);
+						rect(C_X-C_SIZE/2, y + stripeWidth, C_SIZE, stripeWidth);
+						break;
+					case 1:
+						fill(COLOR_SET[colorSelect][0]);
+						rect(C_X-C_SIZE/2, y, C_SIZE, stripeWidth+1);
+						fill(COLOR_SET[colorSelect][1]);
+						rect(C_X-C_SIZE/2, y + stripeWidth+1, C_SIZE, stripeWidth-1);
+						break;
+				}
+				count++;
+				if (count>=8){
+					count = 0;
+					stripeMode = 1-stripeMode;
+				}
 			}
+
 			break;
+/*
 		case 4:
 			stripeWidth = 2;
 			for (let y = C_Y-C_SIZE/2; y < C_Y+C_SIZE/2; y += stripeWidth * 2) {
@@ -173,7 +214,8 @@ function draw() {
 				rect(C_X-C_SIZE/2, y + stripeWidth, C_SIZE, stripeWidth);
 			}
 			break;
-		}
+*/
+	}
 	image(maskBuffer, 0, 0);
 /*
 	for (let y = 100; y < 300; y += stripeWidth * 2) {
